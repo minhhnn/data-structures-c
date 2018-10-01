@@ -33,3 +33,7 @@
 
 # idea files
 .idea
+
+# Project build & executables
+bin/*
+build/*

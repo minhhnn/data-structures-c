@@ -7,28 +7,7 @@ else
   CC := g++
 endif
 
-# Folders
-SRCDIR := src/main
-BUILDDIR := build
-TARGETDIR := bin
-
-# Targets
-EXECUTABLE := HelloWorld
-TARGET := $(TARGETDIR)/$(EXECUTABLE)
-
-# Final Paths
-INSTALLBINDIR := /home/$(shell whoami)/bin
-
-# Code Lists
-SRCEXT := cpp
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-
-# Shared Compiler Flags
-CFLAGS := -c
-# INC := -I include $(INCLIST) -I /usr/local/include
-# LIB := -L /usr/local/lib
-
+CFLAGS := -Wall -c
 # Platform Specific Compiler Flags
 ifeq ($(UNAME_S),Linux)
     CFLAGS += -std=gnu++11 -O2 # -fPIC
@@ -36,23 +15,34 @@ else
   CFLAGS += -std=c++11 -stdlib=libc++ -O2
 endif
 
-$(TARGET): $(OBJECTS)
-	@mkdir -p $(TARGETDIR)
-	@echo "Linking..."
-	@echo "  Linking $(TARGET)"; $(CC) $^ -o $(TARGET)
+# Folders
+SRCDIR := src/main
+BUILDDIR := build
+TARGETDIR := bin
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(TARGETDIR)
+all: LinkedList
 	@mkdir -p $(BUILDDIR)
-	@echo "Compiling $<..."; $(CC) $(CFLAGS) -c -o $@ $<
+	@mkdir -p $(TARGETDIR)
+
+LinkedList: LinkedList.o Node.o
+	@echo "Linking LinkedList"
+	$(CC) -o LinkedList LinkedList.o Node.o
+
+LinkedList.o: LinkedList.cpp Node.h LinkedList.h
+	@echo "Compiling LinkedList.cpp";
+	$(CC) $(CFLAGS) -c LinkedList.cpp
+
+Node.o: Node.h
+	@echo "Compiling Node.cpp";
+	$(CC) $(CFLAGS) -c Node.cpp
 
 clean:
-	@echo "Cleaning $(TARGET)..."; $(RM) -r $(BUILDDIR) $(TARGET)
+	@echo "Cleaning TARGET ..."; rm -r $(BUILDDIR)
 
 install:
-	@echo "Installing $(EXECUTABLE)..."; cp $(TARGET) $(INSTALLBINDIR)
+	@echo "Installing EXECUTABLE..."; cp $(TARGETDIR) $(INSTALLBINDIR)
 
 distclean:
-	@echo "Removing $(EXECUTABLE)"; rm $(INSTALLBINDIR)/$(EXECUTABLE)
+	@echo "Removing EXECUTABLE"; rm -r $(TARGETDIR)
 
 .PHONY: clean

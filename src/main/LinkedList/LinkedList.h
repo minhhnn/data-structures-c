@@ -24,7 +24,7 @@ public:
 };
 
 template <typename T>
-LinkedList<T>::LinkedList() : head(NULL), tail(NULL), count(0) {}
+LinkedList<T>::LinkedList() : count(0), head(NULL), tail(NULL) {}
 
 template <typename T>
 int LinkedList<T>::size() {

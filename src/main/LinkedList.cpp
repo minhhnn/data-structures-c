@@ -7,17 +7,14 @@
 #include "Node.h"
 #include "LinkedList.h"
 
-template <typename T>
-LinkedList<T>::LinkedList() : head(NULL), tail(NULL), count(0) {}
+LinkedList::LinkedList() : head(NULL), tail(NULL), count(0) {}
 
-template <typename T>
-int LinkedList<T>::size() {
-	return size;
+int LinkedList::size() {
+	return count;
 }
 
-template <typename T>
-void LinkedList<T>::addFirst(T val) {
-	Node<T> * newNode = new Node<T>(val);
+void LinkedList::addFirst(int val) {
+	Node * newNode = new Node(val);
 	newNode -> next = head;
 	head = newNode;
 
@@ -27,11 +24,10 @@ void LinkedList<T>::addFirst(T val) {
 	count++;
 }
 
-template <typename T>
-void LinkedList<T>::printList() {
-	Node<T> * current = head;
+void LinkedList::printList() {
+	Node * current = head;
 	while (current != NULL) {
-		std::cout << current.value << "\t";
+		std::cout << current -> value << "\t";
 		current = current -> next;
 	}
 }

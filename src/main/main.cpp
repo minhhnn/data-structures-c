@@ -8,7 +8,7 @@
 
 using namespace std;
 int main() {
-	LinkedList<int> list = LinkedList<int>();
+	LinkedList list = LinkedList();
 
 	list.addFirst(2);
 	list.addFirst(5);
@@ -18,6 +18,7 @@ int main() {
 
 	cout << "List = ";
 	list.printList();
+	cout << endl;
 
 	return 0;
 }

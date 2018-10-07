@@ -4,12 +4,11 @@
 
 #ifndef DATA_STRUCTURES_C_NODE_H
 #define DATA_STRUCTURES_C_NODE_H
-template <typename T>
 class Node {
 public:
-	T value;
-	Node<T> * next;
+	int value;
+	Node * next;
 
-	Node(T val);
+	Node(int val);
 };
 #endif //DATA_STRUCTURES_C_NODE_H

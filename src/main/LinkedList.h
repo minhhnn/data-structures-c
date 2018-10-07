@@ -7,16 +7,15 @@
 
 #include "Node.h"
 
-template<typename  T>
 class LinkedList {
 private:
 	int count;
-	Node<T> head;
-	Node<T> tail;
+	Node * head;
+	Node * tail;
 public:
 	LinkedList();
 	int size();
-	void addFirst(T val);
+	void addFirst(int val);
 	void printList();
 };
 
